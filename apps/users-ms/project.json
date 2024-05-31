@@ -1,0 +1,28 @@
+{
+  "name": "users-ms",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/users-ms/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "users-ms:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "users-ms:build:development"
+        },
+        "production": {
+          "buildTarget": "users-ms:build:production"
+        }
+      }
+    },
+    "docker-build": {
+      "dependsOn": ["build"],
+      "command": "docker build -f apps/users-ms/Dockerfile . -t users-ms"
+    }
+  }
+}
